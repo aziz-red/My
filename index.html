@@ -1,1 +1,205 @@
-<!DOCTYPE html><html><head>    <title>موقعي الأول</title>    <style>        body { font-family: Arial; text-align: center; background-color: #f0f0f0; }        h1 { color: blue; }    </style></head><body>    <h1>أهلاً بك في موقعي الخاص!</h1>    <p>لقد قمت ببرمجة هذا الموقع باستخدام الكود.</p></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السيرة الذاتية - عزيز عبدالباسط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        /* الهيدر والصورة الشخصية */
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .contact-info span {
+            margin: 0 10px;
+        }
+
+        /* الأقسام */
+        section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            border-right: 5px solid var(--accent-color);
+            padding-right: 15px;
+            font-size: 22px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .info-detail {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            background: #27ae60;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        /* المهارات */
+        .skills-list {
+            display: flex;
+            wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-list li {
+            background: var(--secondary-color);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <img src="https://raw.githubusercontent.com/aziz-red/My/refs/heads/main/profile.jpg" alt="صورة عزيز عبدالباسط" class="profile-img">
+        <h1>عزيز عبدالباسط بجاش صالح</h1>
+        <div class="contact-info">
+            <span>📞 <b>الهاتف:</b> 96739367154+</span> | 
+            <span>📧 <b>الإيميل:</b> aziz7166red@gmail.com</span>
+        </div>
+    </header>
+
+    <section id="summary">
+        <h2>الملخص المهني</h2>
+        <p>متخصص في إدارة الموارد البشرية ومراقبة الجودة مع خبرة عملية في شركة "هزاع طه". أمتلك مهارات متقدمة في السكرتارية التنفيذية والحاسوب، حاصل على تقدير ممتاز في دبلوم السكرتارية، وأسعى لتوظيف خبراتي الإدارية والتقنية للمساهمة في نجاح المؤسسة.</p>
+    </section>
+
+    <section id="education">
+        <h2>المؤهلات العلمية</h2>
+        
+        <div class="info-item">
+            <span class="info-title">دبلوم سكرتارية <span class="badge">تقدير ممتاز</span></span>
+            <span class="info-detail">معهد الدراسات واللغات وعلوم الكمبيوتر</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-title">شهادة حاسب آلي</span>
+            <span class="info-detail">جامعة تعز</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-title">دبلوم كمبيوتر</span>
+            <span class="info-detail">تخصص مهارات الحاسب الآلي المتقدمة</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-title">دبلوم لغة إنجليزية</span>
+            <span class="info-detail">إتقان مهارات التحدث والكتابة</span>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>الخبرة العملية</h2>
+        <div class="info-item">
+            <span class="info-title">شركة هزاع طه</span>
+            <span class="info-detail">شغلت عدة مهام محورية تشمل:</span>
+            <ul style="margin-top: 5px;">
+                <li><b>مجال القوة البشرية (HR):</b> تنظيم ملفات الموظفين وإدارة البيانات.</li>
+                <li><b>مراقب جودة:</b> التأكد من سير العمل وفق المعايير المطلوبة.</li>
+                <li><b>مراقب وقت:</b> تنظيم الجداول الزمنية ومتابعة الحضور والانصراف.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>المهارات التقنية والشخصية</h2>
+        <ul class="skills-list">
+            <li>السكرتارية التنفيذية</li>
+            <li>إدارة الوقت</li>
+            <li>إدخال البيانات</li>
+            <li>مراقبة الجودة</li>
+            <li>إدارة الموارد البشرية</li>
+            <li>العمل تحت الضغط</li>
+            <li>إجادة حزمة Microsoft Office</li>
+        </ul>
+    </section>
+
+    <section id="languages">
+        <h2>اللغات</h2>
+        <p><b>العربية:</b> اللغة الأم (إتقان تام)</p>
+        <p><b>الإنجليزية:</b> مستوى متقدم (دبلوم)</p>
+    </section>
+</div>
+
+</body>
+</html>
