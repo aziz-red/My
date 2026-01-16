@@ -3,199 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>السيرة الذاتية - عزيز عبدالباسط</title>
+    <title>مقياس الحب الأبدي - الإصدار الماسي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
-            --text-color: #333;
-            --bg-color: #f4f7f6;
+            --primary: #ff2e63;
+            --secondary: #ff6b6b;
+            --gold: #ffc107;
+            --dark-bg: #0f050a;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
         }
+
+        * { box-sizing: border-box; outline: none; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark-bg);
             margin: 0;
-            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 15px;
         }
 
-        .container {
-            max-width: 900px;
-            background: #fff;
-            margin: 0 auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border-radius: 8px;
+        #canvas-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            background: radial-gradient(circle at 50% 50%, #2d0a1a 0%, #0f050a 100%);
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* الكارت الرئيسي */
+        .main-card {
+            background: var(--glass);
+            padding: 2.5rem 1.5rem;
+            border-radius: 40px;
+            text-align: center;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+
+        /* منطقة الالتقاط */
+        #captureArea {
+            padding: 10px;
+            background: transparent;
+        }
+
+        .heart-icon {
+            width: 85px;
+            fill: var(--primary);
+            filter: drop-shadow(0 0 15px var(--primary));
+            animation: heartBeat 1.4s infinite ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h1 { 
+            font-weight: 900; 
+            font-size: 1.6rem; 
+            margin: 0 0 30px 0;
+            background: linear-gradient(to bottom, #ffffff, #ffb3c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* منع تقطع الحروف */
+            display: block;
+            width: 100%;
+        }
+
+        .input-box { margin-bottom: 15px; }
+        input {
+            width: 100%;
+            padding: 18px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            color: white;
+            font-family: 'Cairo';
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .btn-main {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 20px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 46, 99, 0.3);
+        }
+
+        #resultDisplay { display: none; }
+        
+        .percent-text {
+            font-size: 5.5rem;
+            font-weight: 900;
+            margin: 10px 0;
+            line-height: 1;
+            background: linear-gradient(to bottom, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-text {
+            background: linear-gradient(to bottom, #fff, var(--gold)) !important;
+            -webkit-background-clip: text !important;
+        }
+
+        .progress-bar-bg {
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin: 25px 0;
             overflow: hidden;
         }
+        #progressFill {
+            height: 100%; width: 0%;
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            transition: width 1.5s cubic-bezier(0.1, 0.8, 0.3, 1);
+        }
 
-        /* Header Section */
-        header {
-            background: var(--primary-color);
+        #namesDisplay { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+        #messageDisplay { font-style: italic; color: #ddd; font-size: 1.1rem; }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 25px;
+            display: none;
+        }
+        .btn-action {
+            padding: 15px;
+            border-radius: 18px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.1);
             color: white;
-            padding: 40px 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            cursor: pointer;
+            font-family: 'Cairo';
+            font-weight: 600;
+            transition: 0.2s;
         }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid var(--accent-color);
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-
-        header h1 {
-            margin: 10px 0;
-            font-size: 2em;
-        }
-
-        .contact-info {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            font-size: 0.9em;
-        }
-
-        .contact-info span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 30px;
-        }
-
-        section {
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 5px;
-            color: var(--primary-color);
-            font-size: 1.4em;
-            margin-bottom: 15px;
-        }
-
-        .item {
-            margin-bottom: 15px;
-        }
-
-        .item h3 {
-            margin: 0;
-            color: var(--secondary-color);
-            font-size: 1.1em;
-        }
-
-        .item .sub {
-            color: var(--accent-color);
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .item .desc {
-            font-size: 0.95em;
-            margin-top: 5px;
-        }
-
-        /* List Styling */
-        ul {
-            padding-right: 20px;
-        }
-
-        /* Tags for skills */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-tag {
-            background: #e1e8ed;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 600px) {
-            header { padding: 20px 10px; }
-            .profile-img { width: 120px; height: 120px; }
-        }
+        .btn-save { background: var(--primary); border: none; grid-column: span 2; }
+        .btn-share { background: #25d366; border: none; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <img src="https://raw.githubusercontent.com/aziz-red/My/refs/heads/main/profile.jpg" alt="عزيز عبدالباسط" class="profile-img">
-        <h1>عزيز عبدالباسط بجاش صالح</h1>
-        <div class="contact-info">
-            <span>📞 +967739367154</span>
-            <span>✉️ aziz7166red@gmail.com</span>
-            <span>📍 اليمن</span>
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="app-container">
+        <div class="main-card">
+            <div id="captureArea">
+                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <h1 id="titleText">مقياس التوافق الروحي</h1>
+
+                <div id="inputForm">
+                    <div class="input-box"><input type="text" id="p1" placeholder="الاسم الأول"></div>
+                    <div class="input-box"><input type="text" id="p2" placeholder="الاسم الثاني"></div>
+                    <button class="btn-main" onclick="startLoveTest()">حلل نسبة الحب💖</button>
+                </div>
+
+                <div id="resultDisplay">
+                    <div id="namesDisplay"></div>
+                    <div id="percentNum" class="percent-text">0%</div>
+                    <div class="progress-bar-bg"><div id="progressFill"></div></div>
+                    <p id="messageDisplay"></p>
+                </div>
+            </div>
+
+            <div class="actions-grid" id="actionButtons">
+                <button class="btn-action btn-save" id="saveBtn" onclick="downloadResult()">حفظ النتيجة كصورة 📸</button>
+                <button class="btn-action btn-share" onclick="shareToFriends()">مشاركة 🔗</button>
+                <button class="btn-action" onclick="location.reload()">إعادة 🔄</button>
+            </div>
         </div>
-    </header>
-
-    <div class="main-content">
-        
-        <section id="education">
-            <h2>المؤهلات العلمية</h2>
-            <div class="item">
-                <h3>دبلوم سكرتارية (تقدير ممتاز)</h3>
-                <span class="sub">معهد الدراسات واللغات وعلوم الكمبيوتر</span>
-            </div>
-            <div class="item">
-                <h3>شهادة حاسب آلي</h3>
-                <span class="sub">جامعة تعز</span>
-            </div>
-            <div class="item">
-                <h3>دبلوم كمبيوتر</h3>
-                <span class="sub">تخصص تقني</span>
-            </div>
-            <div class="item">
-                <h3>دبلوم لغة إنجليزية</h3>
-                <span class="sub">مستوى متقدم</span>
-            </div>
-        </section>
-
-        <section id="experience">
-            <h2>الخبرة العملية</h2>
-            <div class="item">
-                <h3>شركة هزاع طه</h3>
-                <p class="desc">عملت في عدة مجالات حيوية شملت:</p>
-                <ul>
-                    <li><strong>مسؤول قوة بشرية (HR):</strong> إدارة شؤون الموظفين وتنظيم الملفات.</li>
-                    <li><strong>مراقب جودة:</strong> التأكد من معايير العمل والجودة المطلوبة.</li>
-                    <li><strong>مراقب وقت:</strong> إدارة الحضور والانصراف وتنظيم ساعات العمل.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="skills">
-            <h2>المهارات الشخصية والتقنية</h2>
-            <div class="skills-container">
-                <span class="skill-tag">إدارة المكاتب والسكرتارية</span>
-                <span class="skill-tag">إدارة الموارد البشرية</span>
-                <span class="skill-tag">إجادة حزمة MS Office</span>
-                <span class="skill-tag">مراقبة الجودة والتدقيق</span>
-                <span class="skill-tag">اللغة الإنجليزية</span>
-                <span class="skill-tag">إدارة الوقت والالتزام</span>
-                <span class="skill-tag">العمل تحت الضغط</span>
-            </div>
-        </section>
-
     </div>
-</div>
 
+    <script>
+        // أنيميشن الخلفية
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        function setupCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = setupCanvas; setupCanvas();
+
+        function startLoveTest() {
+            const n1 = document.getElementById('p1').value.trim();
+            const n2 = document.getElementById('p2').value.trim();
+            if(!n1 || !n2) return alert("لطفاً، أدخل الأسماء");
+
+            document.getElementById('inputForm').style.display = 'none';
+            document.getElementById('resultDisplay').style.display = 'block';
+            document.getElementById('actionButtons').style.display = 'grid';
+            document.getElementById('namesDisplay').innerText = `${n1} ❤️ ${n2}`;
+
+            let finalValue = 0;
+            const pair = [n1, n2].sort();
+            if(pair[0] === "ريما" && pair[1] === "عزيز") finalValue = 100;
+            else finalValue = Math.floor(Math.random() * 41) + 59;
+
+            let count = 0;
+            const counter = setInterval(() => {
+                count++;
+                document.getElementById('percentNum').innerText = count + "%";
+                if(count >= finalValue) clearInterval(counter);
+            }, 30);
+
+            setTimeout(() => {
+                document.getElementById('progressFill').style.width = finalValue + "%";
+                const msg = document.getElementById('messageDisplay');
+                if(finalValue === 100) {
+                    document.getElementById('percentNum').classList.add('gold-text');
+                    msg.innerHTML = "أنتما أسطورة حب لا تتكرر! ✨";
+                } else {
+                    msg.innerText = "هناك كيمياء مذهلة بينكما!";
+                }
+            }, 100);
+        }
+
+        // --- دالة الحفظ الجديدة (تحل مشكلة الحروف العربية) ---
+        function downloadResult() {
+            const node = document.getElementById('captureArea');
+            const btn = document.getElementById('saveBtn');
+            btn.innerText = "جارِ الحفظ...";
+
+            // إعدادات الصورة
+            const config = {
+                pixelRatio: 2, // جودة عالية
+                backgroundColor: '#12050c', // لون الخلفية في الصورة
+                style: {
+                    transform: 'scale(1)',
+                    borderRadius: '20px'
+                }
+            };
+
+            htmlToImage.toPng(node, config)
+                .then(function (dataUrl) {
+                    const link = document.createElement('a');
+                    link.download = `Love-Test-${Date.now()}.png`;
+                    link.href = dataUrl;
+                    link.click();
+                    btn.innerText = "حفظ النتيجة كصورة 📸";
+                })
+                .catch(function (error) {
+                    console.error('حدث خطأ:', error);
+                    alert("عذراً، استخدم خاصية تصوير الشاشة في هاتفك.");
+                    btn.innerText = "حفظ النتيجة كصورة 📸";
+                });
+        }
+
+        async function shareToFriends() {
+            const perc = document.getElementById('percentNum').innerText;
+            const shareData = {
+                title: 'مقياس الحب',
+                text: `نسبة التوافق بيننا هي ${perc}! جرب المقياس الآن ❤️`,
+                url: window.location.href
+            };
+            try { await navigator.share(shareData); } catch (err) {}
+        }
+    </script>
 </body>
 </html>
+
